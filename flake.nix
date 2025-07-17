@@ -15,31 +15,22 @@
           };
         in {
           packages = with pkgs; {
-            default = stdenv.mkDerivation (finalAttrs: {
+            default = stdenv.mkDerivation {
               name = "looking-glass-viewer";
-
-              src = ./.;
-
-              yarnOfflineCache = fetchYarnDeps {
-                yarnLock = finalAttrs.src + "/yarn.lock";
-                hash = "sha256-Rgn8Y+ES8QSUNhvvAhPvq8rtyUtQyjWCK7R6hNwyyvY=";
-              };
-
-              nativeBuildInputs =
-                [ yarnConfigHook yarnBuildHook yarnInstallHook nodejs ];
-
-              buildPhase = ''
-                yarn
-                yarn build
-                ls -al
-                xxxx
+              src = ./build;
+              buildPhase = "true";
+              installPhase = ''
+                ls $out
+                chmod +x $out/run.sh
+                mkdir $out/bin
+                mv $out/run-stdin.sh $out/bin/looking-glass-viewer-stdin
+                mv $out/run.sh $out/bin/looking-glass-viewer
               '';
-            });
+            };
           };
           devShell =
             pkgs.mkShell { buildInputs = [ pkgs.yarn pkgs.webpack-cli ]; };
 
         };
     in with utils.lib; eachSystem defaultSystems out;
-
 }
