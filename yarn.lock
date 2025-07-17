@@ -1934,7 +1934,7 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
-"sigma@git+https://github.com/jacomyal/sigma.js#main":
+"sigma@git+https://github.com/jacomyal/sigma.js#739aa57ccafee1bae6bfde6713c6f9344053cdd2":
   version "2.3.1"
   resolved "git+https://github.com/jacomyal/sigma.js#739aa57ccafee1bae6bfde6713c6f9344053cdd2"
   dependencies:

@@ -5,20 +5,41 @@
   };
 
   outputs = { self, nixpkgs, utils }:
-    let out = system:
-      let
-        overlay = final: prev: {
-        };
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [overlay];
-        };
-      in
-      {
-        devShell = pkgs.mkShell {
-          buildInputs = [pkgs.yarn];
-        };
+    let
+      out = system:
+        let
+          overlay = final: prev: { };
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ overlay ];
+          };
+        in {
+          packages = with pkgs; {
+            default = stdenv.mkDerivation (finalAttrs: {
+              name = "looking-glass-viewer";
 
-      }; in with utils.lib; eachSystem defaultSystems out;
+              src = ./.;
+
+              yarnOfflineCache = fetchYarnDeps {
+                yarnLock = finalAttrs.src + "/yarn.lock";
+                hash = "sha256-Rgn8Y+ES8QSUNhvvAhPvq8rtyUtQyjWCK7R6hNwyyvY=";
+              };
+
+              nativeBuildInputs =
+                [ yarnConfigHook yarnBuildHook yarnInstallHook nodejs ];
+
+              buildPhase = ''
+                yarn
+                yarn build
+                ls -al
+                xxxx
+              '';
+            });
+          };
+          devShell =
+            pkgs.mkShell { buildInputs = [ pkgs.yarn pkgs.webpack-cli ]; };
+
+        };
+    in with utils.lib; eachSystem defaultSystems out;
 
 }

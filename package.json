@@ -23,6 +23,6 @@
     "graphology-layout": "^0.6.0",
     "graphology-layout-forceatlas2": "^0.9.2",
     "graphology-types": "^0.24.4",
-    "sigma": "git+https://github.com/jacomyal/sigma.js#main"
+    "sigma": "git+https://github.com/jacomyal/sigma.js#739aa57ccafee1bae6bfde6713c6f9344053cdd2"
   }
 }

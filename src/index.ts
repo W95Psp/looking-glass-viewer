@@ -43,9 +43,8 @@ function startup() {
     loading.style.display = "none";
     failures.textContent = "";
 
-    document.title = `${
-      graphDef.title || title || "untitled"
-    } - Looking Glass 🔎`;
+    document.title = `${graphDef.title || title || "untitled"
+      } - Looking Glass 🔎`;
 
     myView = new View(graph, graphContainer, nodeDataView);
   }
@@ -59,6 +58,13 @@ function startup() {
 
     onAcceptText(data);
   });
+
+
+  (async () => {
+    let json: undefined | string;
+    try { json = await (await fetch("preloaded-data.json")).text(); } catch (e) { };
+    json === undefined || onAcceptText(json);
+  })();
 }
 
 startup();
