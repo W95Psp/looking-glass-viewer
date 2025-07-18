@@ -20,7 +20,8 @@
               src = ./build;
               buildPhase = "true";
               installPhase = ''
-                ls $out
+                cp -rf . $out
+                ls -al .
                 chmod +x $out/run.sh
                 mkdir $out/bin
                 mv $out/run-stdin.sh $out/bin/looking-glass-viewer-stdin
