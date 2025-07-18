@@ -22,6 +22,7 @@
               installPhase = ''
                 cp -rf . $out
                 chmod +x $out/run.sh
+                chmod +x $out/run-stdin.sh
                 mkdir $out/bin
                 mv $out/run-stdin.sh $out/bin/looking-glass-viewer-stdin
                 mv $out/run.sh $out/bin/looking-glass-viewer
